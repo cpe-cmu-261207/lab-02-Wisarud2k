@@ -22,10 +22,12 @@ document.addEventListener('DOMContentLoaded',function () {
     
     };
 
-    // array for contain information
+    // array for contain information and some variable
     var idArray = [];
     var semesterArray = [];
     var gradeArray = [];
+    var calArray =  [];
+    var all = 0;
 
     document.querySelector('form').onsubmit = function () {
         var submit = document.querySelector('#submit');
@@ -58,8 +60,11 @@ document.addEventListener('DOMContentLoaded',function () {
             //function for delete button
             deleteButton.onclick = function () {
                 //attempt to delete information inside array
-                const id_index = idArray.indexOf(c1.innerHTML);
+                const id_index = semesterArray.indexOf(c4.innerHTML);
                 idArray.splice(id_index,1);
+                semesterArray.splice(id_index,1);
+                gradeArray.splice(id_index,1);
+                calArray.splice(id_index,1);
 
                 tbl.removeChild(row);
                
@@ -77,6 +82,7 @@ document.addEventListener('DOMContentLoaded',function () {
             row.append(c3);
             row.append(c5);
             tbl.append(row);
+            
         }
         
         //clear text when submit
@@ -90,13 +96,74 @@ document.addEventListener('DOMContentLoaded',function () {
     
     // detect when click all id calculate
     document.querySelector('#all-cal').onclick = function(){
-        console.log('all cal');
+        var semester = document.querySelector('#semester_cal');
+        if(semester.value == 1){
+            semesterArray.forEach(gradecal_sem1);
+        }else if(semester.value == 2){
+            semesterArray.forEach(gradecal_sem2);
+        }else{
+            semesterArray.forEach(gradecal_all);
+        }
+        calArray.forEach(cal_Credit);
+        console.log(calArray[1]);
+        console.log(calArray.length+1);
+        alert("Your All GPA is" + all/(calArray.length+1));
+        calArray.splice(0,calArray.length);
+        all = 0;
         return false;
     };
     //detect when click major calculate
     document.querySelector('#major-cal').onclick = function(){
-        console.log('major cal')
+        var semester = document.querySelector('#semester_cal');
         return false;
     };
+
+    function gradecal_sem1(index,item){
+        if(item == 1){
+            calArray.push(gradeArray[index])
+            
+        }
+    }
+
+    function gradecal_sem2(index,item){        
+        if(item == 2){
+            calArray.push(gradeArray[index])
+            
+        }
+    }
+
+    function gradecal_all(index,item){    
+        calArray.push(gradeArray[index])
+    }
+
+    function cal_Credit(value){
+        switch(value){
+            case 'A':
+                value = 4;
+                break;
+            case 'B+':
+                value = 3.5;
+                break;
+            case 'B':
+                value = 3;
+                break;
+            case 'C+':
+                value = 2.5;
+                break;
+            case 'C':
+                value = 2;
+                break;
+            case 'D+':
+                value = 1.5;
+                break;
+            case 'D':
+                value = 1;
+                break;
+            default:
+                value = 0;
+            
+        }
+        all += value;
+    }
 
 });
