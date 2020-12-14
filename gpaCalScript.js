@@ -22,42 +22,81 @@ document.addEventListener('DOMContentLoaded',function () {
     
     };
 
+    // array for contain information
+    var idArray = [];
+    var semesterArray = [];
+    var gradeArray = [];
 
     document.querySelector('form').onsubmit = function () {
         var submit = document.querySelector('#submit');
         var tbl = document.querySelector('#tbl1');
         var row = document.createElement('tr');
         // input for different colum
-        var c1Input = document.querySelector('#id');
-        var c2Input = document.querySelector('#subject');
-        var c3Input = document.querySelector('#grade');
-        // create tag th
-        var c1 = document.createElement('th');
-        var c2 = document.createElement('th');
-        var c3 = document.createElement('th');
-        //tag th with  delete button
-        var deleteButton = document.createElement('button');
-        deleteButton.innerHTML = "delete";
-        //function for delete button
-        deleteButton.onclick = function () {
-            tbl.removeChild(row);
+        var idInput = document.querySelector('#id');
+        var subjectInput = document.querySelector('#subject');
+        var gradeInput = document.querySelector('#grade');
+        var semesterInput = document.querySelector('#semester');
+        //check input if its empty or not
+        if(idInput.value == '' || subjectInput.value == '' ||gradeInput.value == ''){
+            alert('Please fill all the detail');
+        }else{
+            // create tag th
+            var c1 = document.createElement('th');
+            var c2 = document.createElement('th');
+            var c3 = document.createElement('th');
+            var c4 = document.createElement('th');
+            var c5 = document.createElement('th');
+
+            // push information to individual array
+            idArray.push(idInput.value);
+            semesterArray.push(semesterInput.value);
+            gradeArray.push(gradeInput.value);
+            
+            //tag th with  delete button
+            var deleteButton = document.createElement('button');
+            deleteButton.innerHTML = "delete";
+            //function for delete button
+            deleteButton.onclick = function () {
+                //attempt to delete information inside array
+                const id_index = idArray.indexOf(c1.innerHTML);
+                idArray.splice(id_index,1);
+
+                tbl.removeChild(row);
+               
+            }
+            c5.append(deleteButton);
+            // add text to individual th tag
+            c1.innerHTML = idInput.value;
+            c2.innerHTML = subjectInput.value;
+            c3.innerHTML = gradeInput.value;
+            c4.innerHTML = semesterInput.value;
+            // append to row and table
+            row.append(c1);
+            row.append(c2);
+            row.append(c4);
+            row.append(c3);
+            row.append(c5);
+            tbl.append(row);
         }
-        // add text to individual th tag
-        c1.innerHTML = c1Input.value;
-        c2.innerHTML = c2Input.value;
-        c3.innerHTML = c3Input.value;
-        // append to row and table
-        row.append(c1);
-        row.append(c2);
-        row.append(c3);
-        row.append(deleteButton);
-        tbl.append(row);
-        console.log('test');
+        
         //clear text when submit
-        c1Input.value = '';
-        c2Input.value = '';
-        c3Input.value = '';
+        idInput.value = '';
+        subjectInput.value = '';
+        gradeInput.value = '';
+        semesterInput.value = '';
         submit.disabled = false;
         return false;
         };
+    
+    // detect when click all id calculate
+    document.querySelector('#all-cal').onclick = function(){
+        console.log('all cal');
+        return false;
+    };
+    //detect when click major calculate
+    document.querySelector('#major-cal').onclick = function(){
+        console.log('major cal')
+        return false;
+    };
+
 });

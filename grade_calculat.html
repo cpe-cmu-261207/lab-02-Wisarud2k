@@ -19,15 +19,21 @@
         </tr>
     </table>
 
- <table style="width: 100%;" id="tbl1">
+ <table style="width: 100%;" id="tbl1" border="1px">
     <tr>
         <th>id</th>
         <th>subject</th>
+        <th>Semester</th>
         <th>grade</th>
+        
     </tr>
     <tr>
-        <th> <input type="text" placeholder="Your Subject ID ..." id="id"></th>
+        <th> <input type="number" placeholder="Your Subject ID ..." id="id"></th>
         <th> <input type="text" placeholder="Your Subject ..." id="subject"></th>
+        <th><select name="semester" id="semester">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select></th>
         <th> <select name="grade" id="grade">
             <option>A</option>
             <option>B+</option>
@@ -42,10 +48,29 @@
     </tr>
 </table>
 
->
+><!--
     <div style="padding-left:46% ;">
-        <button><h1>Calculate</h1></button>
+        <button id="cal_But" type="submit"><h1>Calculate</h1></button>
     </div>
+-->
+   <div>
+       <table style="width: 100%;">
+           <tr>
+               <th>Select Semester</th>
+               <th>All GPA</th>
+               <th>MaJor GPA</th>
+           </tr>
+           <tr>
+               <th><select name="Semester" id="semester_cal">
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">All</option>
+               </select></th>
+               <th><button id="all-cal"><h2>Calculate</h2></button></th>
+               <th><button id="major-cal"><h2>Calculate</h2></button></th>
+           </tr>
+       </table>
+   </div> 
     
 
 </body>
