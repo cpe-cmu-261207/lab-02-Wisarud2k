@@ -104,10 +104,12 @@ document.addEventListener('DOMContentLoaded',function () {
         }else{
             semesterArray.forEach(gradecal_all);
         }
+
+        
         calArray.forEach(cal_Credit);
-        console.log(calArray[1]);
-        console.log(calArray.length+1);
-        alert("Your All GPA is" + all/(calArray.length+1));
+        console.log(calArray);
+        console.log(calArray.length);
+        alert("Your All GPA is" + all/calArray.length);
         calArray.splice(0,calArray.length);
         all = 0;
         return false;
@@ -115,55 +117,88 @@ document.addEventListener('DOMContentLoaded',function () {
     //detect when click major calculate
     document.querySelector('#major-cal').onclick = function(){
         var semester = document.querySelector('#semester_cal');
+        if(semester.value == 1){
+            semesterArray.forEach(majorIdCheck1);
+        }else if(semester.value == 2){
+            semesterArray.forEach(majorIdCheck2);
+        }else{
+            semesterArray.forEach(majorIdCheckAll);
+        }
+
+        calArray.forEach(cal_Credit);
+        console.log(calArray);
+        alert("Your Major GPA is" + all/calArray.length);
+        calArray.splice(0,calArray.length);
+        all = 0;
         return false;
     };
 
-    function gradecal_sem1(index,item){
+    ////oop is crying///
+    function majorIdCheck1(item,index){
+        //console.log( parseInt((idArray[index] % 10000)/1000));
+        if((item == 1) && ((parseInt(idArray[index] / 100000) == 2 && parseInt((idArray[index] % 100000)/10000) == 6 && parseInt((idArray[index] % 10000)/1000) == 1) ||
+        (parseInt(idArray[index] / 100000) == 2 && parseInt((idArray[index] % 100000)/10000) == 5 && parseInt((idArray[index] % 10000)/1000) == 9) ) ){
+            calArray.push(gradeArray[index])
+        }
+    }
+    function majorIdCheck2(item,index){
+        if((item == 2) && ((parseInt(idArray[index] / 100000) == 2 && parseInt((idArray[index] % 100000)/10000) == 6 && parseInt((idArray[index] % 10000)/1000) == 1) ||
+        (parseInt(idArray[index] / 100000) == 2 && parseInt((idArray[index] % 100000)/10000) == 5 && parseInt((idArray[index] % 10000)/1000) == 9) ) ){
+            calArray.push(gradeArray[index])
+        }
+    }
+    function majorIdCheckAll(item,index){
+        if((parseInt(idArray[index] / 100000) == 2 && parseInt((idArray[index] % 100000)/10000) == 6 && parseInt((idArray[index] % 10000)/1000) == 1) ||
+        (parseInt(idArray[index] / 100000) == 2 && parseInt((idArray[index] % 100000)/10000) == 5 && parseInt((idArray[index] % 10000)/1000) == 9)  ){
+            calArray.push(gradeArray[index])
+        }
+    }
+
+    function gradecal_sem1(item,index){
         if(item == 1){
             calArray.push(gradeArray[index])
             
         }
     }
 
-    function gradecal_sem2(index,item){        
+    function gradecal_sem2(item,index){        
         if(item == 2){
             calArray.push(gradeArray[index])
             
         }
     }
 
-    function gradecal_all(index,item){    
+    function gradecal_all(item,index){    
         calArray.push(gradeArray[index])
     }
 
     function cal_Credit(value){
         switch(value){
             case 'A':
-                value = 4;
+                all += 4;
                 break;
             case 'B+':
-                value = 3.5;
+                all += 3.5;
                 break;
             case 'B':
-                value = 3;
+                all += 3;
                 break;
             case 'C+':
-                value = 2.5;
+                all += 2.5;
                 break;
             case 'C':
-                value = 2;
+                all += 2;
                 break;
             case 'D+':
-                value = 1.5;
+                all += 1.5;
                 break;
             case 'D':
-                value = 1;
+                all += 1;
                 break;
             default:
-                value = 0;
+                all += 0;
             
         }
-        all += value;
     }
 
 });
